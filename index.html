@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="nameCalculatorApp">
   <head>
     <meta charset="utf-8">
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
-    <style>body { font-size: 1.3em; }</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+      angular.module('nameCalculatorApp', [])
+        .controller('NameCalculatorController', ['$scope', function($scope) {
+          $scope.name = '';
+          $scope.getTotalValue = function() {
+            let totalValue = 0;
+            for (let i = 0; i < $scope.name.length; i++) {
+              totalValue += $scope.name.charCodeAt(i);
+            }
+            return totalValue;
+          };
+        }]);
+    </script>
+    <style>
+      body { font-size: 1.3em; }
+    </style>
     <title>Name Calculator</title>
   </head>
-  <body>
+  <body ng-controller="NameCalculatorController">
     <h1>Name Calculator</h1>
     <div>
       <div>
-        Your name:
-        <input type="text">
+        <label for="nameInput">Your name:</label>
+        <input type="text" id="nameInput" ng-model="name" placeholder="Enter your name">
       </div>
-      <div> Total Numeric value of person's name is: </div>
+      <div>Total numeric value of person's name is: {{ getTotalValue() }}</div>
     </div>
   </body>
 </html>
